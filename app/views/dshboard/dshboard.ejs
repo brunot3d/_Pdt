@@ -1,0 +1,81 @@
+<%- include ../partials/header %>
+<ul class="nav navbar">
+	<li class="nav-item text-light font-weight-light">DashBoard</li>
+	<li class="nav-item text-light font-weight-light">Olá, usuário</li>
+</ul>
+<div class="full-container d-flex align-items-center">
+	<div class="container dsh-container">
+
+		<div class="row">
+			<div class="col-md-3">
+				<div class="col-md-12 col" id="dsh-col-left">
+					<h3 class="card-title text-light font-weight-light subTitulos">Páginas Criadas</h3>
+					<h3 class="text-light font-weight-light display-4 dsh-display-info" id="dsh-paginas-criadas"><%=paginas.length%></h3>
+					<h3 class="card-title text-light font-weight-light subTitulos">Total de Visualizações</h3>
+					<h3 class="text-light font-weight-light display-4 dsh-display-info" id="dsh-visualizadas">
+						<%let totalVis = 0%>
+						<%paginas.forEach(function(pagina){%>
+							<%totalVis += pagina.acessos;%>
+						<% });%>
+						<%=totalVis%>
+					</h3>
+
+					<h3 class="card-title text-light font-weight-light subTitulos">Página mais acessada:</h3>
+
+					<div class="dsh-join-info">
+						<h3 class="text-light font-weight-light dsh-display-info" id="dsh-pagina_top_page">0</h3>
+						<h3 class="text-light font-weight-light dsh-display-info" id="dsh-pagina_top_views">0</h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="col-md-12 col" id="dsh-col-central">
+					<h3 class="card-title text-light font-weight-light subTitulos">Páginas / Acessos</h3>
+					<div id="dsh-table-content">
+						<table>
+							<thead>
+								<tr>
+									<th class="bg-success text-white">Página</th>
+									<th class="bg-success text-white">Acessos</th>
+								</tr>
+							</thead>
+							<tbody id="dsh-tabela-body">
+								<%paginas.forEach(function(pagina){ %>
+									<tr >
+										<td class="paginaAcessada">/<%=pagina.pagina%></td>
+										<td class="hitCounter"><%=pagina.acessos%></td>
+									</tr>
+								<% });%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 " id="dsh-col-right">
+				<div class="row row-half ">
+					<div class="col-md-12 col col-half" id="dsh-col-sub-top">
+						<h3 class="card-title text-light font-weight-light subTitulos">Zerar Visitas</h3>
+						<form action="/zeraViews" method="post" class="form-group">
+							<button type="submit" class="btn btn-danger">Zerar</button>
+						</form>
+					</div>
+				</div>
+				<div class="row row-half">
+					<div class="col-md-12 col col-half" id="dsh-col-sub-bottom">
+						<h3 class="card-title text-light font-weight-light subTitulos">Apagar páginas</h3>
+						<form action="/apagaLog" method="post" class="form-group">
+							<button type="submit" class="btn btn-danger">Apagar</button>
+						</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="../../js/dshboard-client.js"></script>
+<script>
+	var pages = <%- JSON.stringify(paginas) %>
+</script>
+<%- include ../partials/footer %>

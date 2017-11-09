@@ -1,0 +1,17 @@
+<%- include ../partials/header %>
+
+	<h1 class="display-3 text-light" id="paginaNome">/<%=random%></h1>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+var room = $("#paginaNome");
+
+	socket = io();
+	socket.on('connect', function(){
+		socket.emit('hit', room.text());
+	})
+
+</script>
+
+<%- include ../partials/footer %>
