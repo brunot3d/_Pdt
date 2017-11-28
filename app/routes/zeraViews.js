@@ -1,8 +1,6 @@
-const Pagina = require('../../config/dbConnection');
-
-module.exports = function(app){
+module.exports = function(app, db){
 		app.post("/zeraViews", function(req, res){
-			Pagina.update({}, {acessos:0}, {multi:true},function(err, doc){
+			db.collection("paginas").update({}, {acessos:0}, {multi:true}, function(err, doc){
 				if(err){
 					console.log(err)
 				}else{

@@ -1,0 +1,28 @@
+<%- include ../partials/header %>
+
+<div class="container">
+
+	<div class="row justify-content-center">
+		<div class="col-md-6 col-sm-10 align-self-center ">
+			<div class="form-container card  text-center justify-content-center">
+				<h2 class="card-title text-light font-weight-light mb-5">cadastro</h3>
+				<form action="/signup" method="post" accept-charset="utf-8">
+					<% if (message.length > 0) { %>
+						<% console.log(message)  %>
+        		<div class="alert alert-danger"><%= message %></div>
+    			<% } %>
+					<div class="form-group">
+						<input type="text" name="name" placeholder="Nome" class="form-control form-field" required>
+						<input type="text" name="username" placeholder="Usuário" class="form-control form-field" required>
+						<input type="password" name="password" placeholder="Senha" class="form-control form-field" required>
+						<button type="submit" class="btn  btn-block btn-outline-light mt-4">Enviar</button>
+					</div>
+        </form>
+				<a href="/" id="back">voltar</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<%- include ../partials/footer %>

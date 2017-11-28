@@ -1,11 +1,13 @@
 <%- include ../partials/header %>
 <ul class="nav navbar">
-	<li class="nav-item text-light font-weight-light">DashBoard</li>
-	<li class="nav-item text-light font-weight-light">Olá, usuário</li>
+	<li class="nav-item text-light font-weight-light"><i class="material-icons">&#xE871;</i> DashBoard</li>
+	<div class="">
+		<li class="nav-item text-light font-weight-light">Olá, <strong><%= user.username %></strong></li>
+		<li><a class="nav-item text-light font-weight-light" href="/logout">logout</a></li>
+	</div>
 </ul>
 <div class="full-container d-flex align-items-center">
 	<div class="container dsh-container">
-
 		<div class="row">
 			<div class="col-md-3">
 				<div class="col-md-12 col" id="dsh-col-left">
@@ -42,7 +44,7 @@
 							<tbody id="dsh-tabela-body">
 								<%paginas.forEach(function(pagina){ %>
 									<tr >
-										<td class="paginaAcessada">/<%=pagina.pagina%></td>
+										<td class="paginaAcessada" id=<%=pagina._id%>>/<%=pagina.pagina%></td>
 										<td class="hitCounter"><%=pagina.acessos%></td>
 									</tr>
 								<% });%>
@@ -52,22 +54,19 @@
 				</div>
 			</div>
 			<div class="col-md-3 " id="dsh-col-right">
-				<div class="row row-half ">
-					<div class="col-md-12 col col-half" id="dsh-col-sub-top">
-						<h3 class="card-title text-light font-weight-light subTitulos">Zerar Visitas</h3>
-						<form action="/zeraViews" method="post" class="form-group">
-							<button type="submit" class="btn btn-danger">Zerar</button>
-						</form>
+				<div class="col-md-12 col">
+					<div class="row row-half ">
+						<div class="col-md-12 col-half" id="dsh-col-sub-top">
+							<h3 class="card-title text-light font-weight-light subTitulos">Zerar Visitas</h3>
+								<button type="button" class="btn btn-danger" id="clearHits">Zerar</button>
+						</div>
+					</div>
+					<div class="row row-half">
+						<div class="col-md-12  col-half" id="dsh-col-sub-bottom">
+							<h3 class="card-title text-light font-weight-light subTitulos">Apagar páginas</h3>
+								<button type="button" class="btn btn-danger" id="clearViews">Apagar</button>
 					</div>
 				</div>
-				<div class="row row-half">
-					<div class="col-md-12 col col-half" id="dsh-col-sub-bottom">
-						<h3 class="card-title text-light font-weight-light subTitulos">Apagar páginas</h3>
-						<form action="/apagaLog" method="post" class="form-group">
-							<button type="submit" class="btn btn-danger">Apagar</button>
-						</form>
-				</div>
-
 			</div>
 		</div>
 	</div>
@@ -75,7 +74,4 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="../../js/dshboard-client.js"></script>
-<script>
-	var pages = <%- JSON.stringify(paginas) %>
-</script>
 <%- include ../partials/footer %>

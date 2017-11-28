@@ -1,14 +1,14 @@
-const Pagina = require('../../config/dbConnection');
+module.exports = function(app, db){
 
-
-module.exports = function(app){
-	app.get('/dshboard', function(req, res){
-			Pagina.find(function(err, paginas) {
-			    if (err) {
-						console.log(err)
-						return res.status(500).send('erro interno')
-					}
-					res.render("./dshboard/dshboard", {paginas: paginas})
+	app.get('/dshboard', loginCheck, function(req, res) {
+		db.collection("paginas").find({}).toArray(function(err, results) {
+			if(err) return
+				 res.render("./dshboard/dshboard", {paginas: results, user : req.user})
 			});
-	});
+    });
 };
+function loginCheck(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+  res.redirect('/');
+}

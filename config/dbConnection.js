@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
-
-const PaginaSchema = new mongoose.Schema({
-	pagina : String,
-	acessos: Number
-});	
-
-module.exports = mongoose.model('Pagina', PaginaSchema);
+var MongoClient = require('mongodb').MongoClient;
+var url = 'mongodb://localhost/pdt';
+var db = null
+var MongoClient = MongoClient.connect(url, function(err, mongodb){
+	db = mongodb
+})
+module.exports = db;
